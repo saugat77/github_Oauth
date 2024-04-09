@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\GithubController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+use Laravel\Socialite\Facades\Socialite;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -23,5 +24,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Route::get('/github/redirect',[GithubController::class,'redirect'] )->name('github.login');
+Route::get('/github/callback', 'GithubController@callBack');
 require __DIR__.'/auth.php';
