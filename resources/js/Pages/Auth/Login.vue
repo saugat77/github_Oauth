@@ -6,7 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import Github from '../../../../public/iconmonstr-github-1.svg';
+import githubImg from '../../../../public/iconmonstr-github-1.svg';
 
 defineProps({
     canResetPassword: {
@@ -92,10 +92,10 @@ const submit = () => {
             </div>
             <div class="form-group row mb-0 mt-3">
                 <div class="col-md-8 offset-md-4">
-                    <a :href="route('github.login')"
+                    <a :href="route('provider.login', {providers: 'github'})"
                     class="inline-flex items-center px-4 py-2 bg-yellow-400 border border-transparent rounded-md font-semibold text-xs text-black uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                     >
-                    <img class="mr-3" :src="Github">
+                    <img class="mr-3" :src="githubImg">
                         Login With Github
                     </a>
                 </div>

@@ -9,22 +9,21 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GithubController extends Controller
 {
-    public function redirect()
+    public function redirect($provider)
     {
         return Socialite::driver('github')->redirect();
     }
 
-    public function callBack()
+    public function callBack($provider)
     {
         $githubUser = Socialite::driver('github')->user();
-        dd($githubUser);
         $user = User::updateOrCreate([
             'github_id' => $githubUser->id,
         ], [
-            'name' => $githubUser->name,
-            'email' => $githubUser->email,
+            'name' => $githubUser->name ?? 'saugat',
+            'email' => $githubUser->email ?? 'saugat@gmail.com',
             'github_token' => $githubUser->token,
-            'github_refresh_token' => $githubUser->refreshToken,
+            'provider' => $provider,
         ]);
 
         Auth::login($user);

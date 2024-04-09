@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\GithubController;
 use App\Http\Controllers\ProfileController;
+use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('/github/redirect',[GithubController::class,'redirect'] )->name('github.login');
-Route::get('/github/callback', 'GithubController@callBack');
+Route::get('/auth/{providers}/redirect',[GithubController::class,'redirect'] )->name('provider.login');
+Route::get('/auth/{providers}/callback', [GithubController::class,'callBack']);
+Route::post('/file/upload', [FileController::class, 'upload'])->name('file.upload');
 require __DIR__.'/auth.php';

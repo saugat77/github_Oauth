@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+
 </script>
 
 <template>
@@ -15,8 +16,20 @@ import { Head } from '@inertiajs/vue3';
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">You're logged in!</div>
+                    <form>
+                        <div class="m-4">
+                            <h2 class="block text-gray-700">Upload Json File</h2>
+                            <input type="file" name="jsonFile" class="form-control-file">
+                        </div>
+                        <a :href="route('file.upload')" class="m-1 ml-3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            Submit
+                        </a>
+
+
+                      </form>
                 </div>
             </div>
         </div>
+
     </AuthenticatedLayout>
 </template>
