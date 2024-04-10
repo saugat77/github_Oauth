@@ -27,25 +27,23 @@ class FileController extends Controller
                 return redirect('dashboard')->with('error', 'Invalid JSON format');
             }
 
-            // Check if $jsonData is empty
+
             if (empty($jsonData)) {
                 return redirect('dashboard')->with('error', 'JSON data is empty');
             }
-            // Initialize an empty array to store Excel data
+
             $excelData = [];
 
-            // Extract the first record to determine the headings
             $firstRecord = reset($jsonData);
             $headings = array_keys($firstRecord);
-            $excelData[] = $headings; // Add headings as the first row
+            $excelData[] = $headings;
 
-            // Add each record's values as a new row in the Excel data
             foreach ($jsonData as $record) {
                 $excelData[] = array_values($record);
             }
             $export = new JsonExport($excelData);
 
-            return Excel::download($export, 'invoices.xlsx');
+            return Excel::download($export, 'export.xlsx');
         }
     }
 }
