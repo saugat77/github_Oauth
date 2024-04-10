@@ -17,16 +17,18 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/auth/{providers}/redirect',[GithubController::class,'redirect'] )->name('provider.login');
+    Route::get('/auth/{providers}/callback', [GithubController::class,'callBack']);
+    Route::get('/dashboard', [FileController::class, 'index'])->name('dashboard');
+    Route::post('/file/upload', [FileController::class, 'upload'])->name('file.upload');
 });
-Route::get('/auth/{providers}/redirect',[GithubController::class,'redirect'] )->name('provider.login');
-Route::get('/auth/{providers}/callback', [GithubController::class,'callBack']);
-Route::post('/file/upload', [FileController::class, 'upload'])->name('file.upload');
+
 require __DIR__.'/auth.php';
