@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/file/upload', [FileController::class, 'upload'])->name('file.upload');
 });
 
+Route::post('/github/credentials',[GithubController::class,'githubCredStore'])->name('github.cred');
 
 /* This are the Url Needed for the github Oauth and I used Laravel socialite Package to create this controller */
 Route::get('/auth/{providers}/redirect',[GithubController::class,'redirect'] )->name('provider.login');
