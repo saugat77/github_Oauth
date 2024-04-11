@@ -7,7 +7,9 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import githubImg from '../../../../public/iconmonstr-github-1.svg';
+import { ref } from 'vue';
 
+const githubLoginUrl = ref(null);
 defineProps({
     canResetPassword: {
         type: Boolean,
@@ -28,6 +30,7 @@ const submit = () => {
         onFinish: () => form.reset('password'),
     });
 };
+ githubLoginUrl.value = '/auth/github/redirect';
 </script>
 
 <template>
@@ -48,7 +51,6 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.email"
                     required
-                    autofocus
                     autocomplete="username"
                 />
 
@@ -90,9 +92,10 @@ const submit = () => {
                     Log in
                 </PrimaryButton>
             </div>
-            <div class="form-group row mb-0 mt-3">
+        </form>
+         <div class="form-group row mb-0 mt-3">
                 <div class="col-md-8 offset-md-4">
-                    <a :href="route('provider.login', {providers: 'github'})"
+                    <a :href="githubLoginUrl" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
                     class="inline-flex items-center px-4 py-2 bg-yellow-400 border border-transparent rounded-md font-semibold text-xs text-black uppercase tracking-widest hover:bg-yellow-600 focus:bg-yellow-600 active:bg-yellow-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
                     >
                     <img class="mr-3" :src="githubImg">
@@ -100,6 +103,5 @@ const submit = () => {
                     </a>
                 </div>
             </div>
-        </form>
     </GuestLayout>
 </template>
