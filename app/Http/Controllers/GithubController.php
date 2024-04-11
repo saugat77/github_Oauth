@@ -9,21 +9,23 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GithubController extends Controller
 {
-    public function redirect($provider)
+    public function redirect()
     {
+        //This is where the url hits and after this call back function is called if the github client and secret key is valid
         return Socialite::driver('github')->redirect();
     }
 
-    public function callBack($provider)
+    public function callBack()
     {
         $githubUser = Socialite::driver('github')->user();
         $user = User::updateOrCreate([
             'github_id' => $githubUser->id,
         ], [
-            'name' => $githubUser->name ?? 'saugat',
-            'email' => $githubUser->email ?? 'saugat@gmail.com',
+             // My github email and name was not public so i randomly given out my name and email if the github email is not public
+            'name' => $githubUser->name ?? 'zdasasd',
+            'email' => $githubUser->email ?? 'xuzsda@gmail.com',
             'github_token' => $githubUser->token,
-            'provider' => $provider,
+            'provider' => 'github',
         ]);
 
         Auth::login($user);

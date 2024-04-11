@@ -7,15 +7,15 @@ use Maatwebsite\Excel\Concerns\FromArray;
 
 class JsonExport implements FromArray
 {
-    protected $invoices;
+    protected $users;
 
-    public function __construct(array $invoices)
+    public function __construct(array $users)
     {
-        $this->invoices = $invoices;
+        $this->users = $users;
     }
     public function array(): array
     {
-        return $this->invoices;
+        return $this->users;
     }
 
 }

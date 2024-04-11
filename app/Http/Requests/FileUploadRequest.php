@@ -21,6 +21,8 @@ class FileUploadRequest extends FormRequest
      */
     public function rules(): array
     {
+        /*This Checks Out Whether the request contains the file or not  */
+
         return [
             'jsonFile' => 'required|file',
         ];
